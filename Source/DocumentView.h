@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    DemoDocumentView.h
+    DocumentView.h
     Created: 1 Nov 2022 12:50:54pm
     Author:  Ryan Devens
 
@@ -12,25 +12,24 @@
 
 #include <JuceHeader.h>
 #include "UtilObjects.h"
-#include "WaveformCache.h"
 #include "VerticalLayoutViewport.h"
 #include "OverlayComponent.h"
-#include "DemoRegionSequenceView.h"
+#include "RegionSequenceView.h"
 #include "TrackHeader.h"
 #include "ZoomControls.h"
 
 //==============================================================================
 /*
 */
-class DemoDocumentView  : public juce::Component,
+class DocumentView  : public juce::Component,
 public juce::ChangeListener,
 private juce::ARADocument::Listener,
 private juce::ARAEditorView::Listener
 {
 public:
-	explicit DemoDocumentView (juce::ARADocument& document, PlayHeadState& playHeadState);
+	explicit DocumentView (juce::ARADocument& document, PlayHeadState& playHeadState);
 
-	~DemoDocumentView() override;
+	~DocumentView() override;
 
     //==============================================================================
     // ARADocument::Listener overrides
@@ -118,7 +117,7 @@ private:
     juce::Component tracksBackground;
 	
     std::map<RegionSequenceViewKey, std::unique_ptr<TrackHeader>> trackHeaders;
-    std::map<RegionSequenceViewKey, std::unique_ptr<DemoRegionSequenceView>> regionSequenceViews;
+    std::map<RegionSequenceViewKey, std::unique_ptr<RegionSequenceView>> regionSequenceViews;
     
 	VerticalLayoutViewport viewport;
     OverlayComponent overlay;
@@ -127,5 +126,5 @@ private:
     int viewportHeightOffset = 0;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DemoDocumentView)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DocumentView)
 };

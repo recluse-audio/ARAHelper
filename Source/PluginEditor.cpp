@@ -8,7 +8,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include "DemoDocumentView.h"
+#include "DocumentView.h"
 #include "ARA_HelperView.h"
 
 //==============================================================================
@@ -19,7 +19,7 @@ ARAHelper_Editor::ARAHelper_Editor (ARAHelper_Processor& p)
 	{
 		auto* document = ARADocumentControllerSpecialisation::getSpecialisedDocumentController(editorView->getDocumentController())->getDocument();
 		
-		documentView = std::make_unique<DemoDocumentView> (*document, p.playHeadState );
+		documentView = std::make_unique<DocumentView> (*document, p.playHeadState );
 		helperView = std::make_unique<ARA_HelperView>(*document);
 	}
 

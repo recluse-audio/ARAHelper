@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    DemoPlaybackRegionView.h
+    PlaybackRegionView.h
     Created: 1 Nov 2022 12:47:47pm
     Author:  Ryan Devens
 
@@ -12,17 +12,16 @@
 
 #include <JuceHeader.h>
 #include "WaveformCache.h"
-
 //==============================================================================
 /*
 */
-class DemoPlaybackRegionView : public juce::Component,
+class PlaybackRegionView : public juce::Component,
 public juce::ChangeListener, public juce::ARAPlaybackRegion::Listener
 {
 public:
-	DemoPlaybackRegionView (juce::ARAPlaybackRegion& region, WaveformCache& cache);
+	PlaybackRegionView (juce::ARAPlaybackRegion& region, WaveformCache& cache);
 
-	~DemoPlaybackRegionView() override;
+	~PlaybackRegionView() override;
 
 	void mouseDown (const juce::MouseEvent& m) override;
 
@@ -40,12 +39,12 @@ public:
 
 private:
     juce::ARAPlaybackRegion& playbackRegion;
-    WaveformCache& waveformCache;
-	
+	WaveformCache& waveformCache;
+
 	std::unique_ptr<juce::Label> memoryAddressLabel;
 	std::unique_ptr<juce::Label> notificationLabel;
 
 	int numNotifications = 0;
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DemoPlaybackRegionView);
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PlaybackRegionView);
 };

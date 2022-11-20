@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    DemoRegionSequenceView.h
+    RegionSequenceView.h
     Created: 1 Nov 2022 12:48:09pm
     Author:  Ryan Devens
 
@@ -11,21 +11,21 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "PlaybackRegionView.h"
 #include "WaveformCache.h"
-#include "DemoPlaybackRegionView.h"
 
 //==============================================================================
 /*
 */
-class DemoRegionSequenceView : public juce::Component,
+class RegionSequenceView : public juce::Component,
 public juce::ARARegionSequence::Listener,
 public juce::ChangeBroadcaster,
 private juce::ARAPlaybackRegion::Listener
 {
 public:
-	DemoRegionSequenceView (juce::ARARegionSequence& rs, WaveformCache& cache, double pixelPerSec);
+	RegionSequenceView (juce::ARARegionSequence& rs, WaveformCache& cache, double pixelPerSec);
 
-	~DemoRegionSequenceView() override;
+	~RegionSequenceView() override;
 
     //==============================================================================
     // ARA Document change callback overrides
@@ -52,10 +52,10 @@ private:
 	void updatePlaybackDuration();
 
     juce::ARARegionSequence& regionSequence;
-    WaveformCache& waveformCache;
-    std::unordered_map<juce::ARAPlaybackRegion*, std::unique_ptr<DemoPlaybackRegionView>> playbackRegionViewsMap;
+	WaveformCache& waveformCache;
+	std::unordered_map<juce::ARAPlaybackRegion*, std::unique_ptr<PlaybackRegionView>> playbackRegionViewsMap;
     double playbackDuration = 0.0;
     double zoomLevelPixelPerSecond;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DemoRegionSequenceView)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RegionSequenceView)
 };

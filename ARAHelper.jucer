@@ -6,21 +6,16 @@
   <MAINGROUP id="txu9ht" name="ARAHelper">
     <GROUP id="{23FEAE3D-FA35-C0BF-6594-7F689F119FA4}" name="Source">
       <FILE id="T6Lcjw" name="GlobalDefines.h" compile="0" resource="0" file="Source/GlobalDefines.h"/>
+      <FILE id="aeFbEh" name="PossiblyBufferedReader.cpp" compile="1" resource="0"
+            file="Source/PossiblyBufferedReader.cpp"/>
+      <FILE id="OXJqxx" name="PossiblyBufferedReader.h" compile="0" resource="0"
+            file="Source/PossiblyBufferedReader.h"/>
+      <FILE id="F4rBco" name="WaveformCache.cpp" compile="1" resource="0"
+            file="Source/WaveformCache.cpp"/>
+      <FILE id="HSqjfS" name="WaveformCache.h" compile="0" resource="0" file="Source/WaveformCache.h"/>
       <GROUP id="{6DF16422-B970-5319-3BAA-7E10B66F579B}" name="Util">
         <FILE id="PHcPfH" name="AsyncCallback.h" compile="0" resource="0" file="Source/AsyncCallback.h"/>
         <FILE id="gsu3bc" name="UtilObjects.h" compile="0" resource="0" file="Source/UtilObjects.h"/>
-      </GROUP>
-      <GROUP id="{91348DE0-A88C-200E-8F85-84D4D22379CF}" name="Looping">
-        <FILE id="pMrZrs" name="Looper.cpp" compile="1" resource="0" file="Source/Looper.cpp"/>
-        <FILE id="ZI7sn7" name="Looper.h" compile="0" resource="0" file="Source/Looper.h"/>
-        <FILE id="lHmuRx" name="OptionalRange.h" compile="0" resource="0" file="Source/OptionalRange.h"/>
-        <FILE id="MrvdUP" name="PossiblyBufferedReader.cpp" compile="1" resource="0"
-              file="Source/PossiblyBufferedReader.cpp"/>
-        <FILE id="GFI90s" name="PossiblyBufferedReader.h" compile="0" resource="0"
-              file="Source/PossiblyBufferedReader.h"/>
-        <FILE id="nGQ0xS" name="WaveformCache.cpp" compile="1" resource="0"
-              file="Source/WaveformCache.cpp"/>
-        <FILE id="YVUhg7" name="WaveformCache.h" compile="0" resource="0" file="Source/WaveformCache.h"/>
       </GROUP>
       <GROUP id="{602DBADF-F001-141E-56DB-18F3BDCA76F6}" name="Components">
         <FILE id="c158IT" name="OverlayComponent.cpp" compile="1" resource="0"
@@ -60,20 +55,23 @@
           <FILE id="i0KFCU" name="ARA_ListenerCallbackDisplay.h" compile="0"
                 resource="0" file="Source/ARA_ListenerCallbackDisplay.h"/>
         </GROUP>
-        <FILE id="ZJkiBS" name="DemoPlaybackRegionView.cpp" compile="1" resource="0"
-              file="Source/DemoPlaybackRegionView.cpp"/>
-        <FILE id="YqUzOe" name="DemoPlaybackRegionView.h" compile="0" resource="0"
-              file="Source/DemoPlaybackRegionView.h"/>
-        <FILE id="QDnlBe" name="DemoRegionSequenceView.cpp" compile="1" resource="0"
-              file="Source/DemoRegionSequenceView.cpp"/>
-        <FILE id="I4JC0L" name="DemoRegionSequenceView.h" compile="0" resource="0"
-              file="Source/DemoRegionSequenceView.h"/>
-        <FILE id="vtWzHn" name="DemoDocumentView.cpp" compile="1" resource="0"
-              file="Source/DemoDocumentView.cpp"/>
-        <FILE id="ULvmva" name="DemoDocumentView.h" compile="0" resource="0"
-              file="Source/DemoDocumentView.h"/>
+        <FILE id="ZJkiBS" name="PlaybackRegionView.cpp" compile="1" resource="0"
+              file="Source/PlaybackRegionView.cpp"/>
+        <FILE id="YqUzOe" name="PlaybackRegionView.h" compile="0" resource="0"
+              file="Source/PlaybackRegionView.h"/>
+        <FILE id="QDnlBe" name="RegionSequenceView.cpp" compile="1" resource="0"
+              file="Source/RegionSequenceView.cpp"/>
+        <FILE id="I4JC0L" name="RegionSequenceView.h" compile="0" resource="0"
+              file="Source/RegionSequenceView.h"/>
+        <FILE id="vtWzHn" name="DocumentView.cpp" compile="1" resource="0"
+              file="Source/DocumentView.cpp"/>
+        <FILE id="ULvmva" name="DocumentView.h" compile="0" resource="0" file="Source/DocumentView.h"/>
       </GROUP>
       <GROUP id="{28EADBB1-911D-3C92-9EF8-482AA0FDBA4B}" name="ARA">
+        <FILE id="WDLMP2" name="ARAHelper_AudioMod.cpp" compile="1" resource="0"
+              file="Source/ARAHelper_AudioMod.cpp"/>
+        <FILE id="rJXXjG" name="ARAHelper_AudioMod.h" compile="0" resource="0"
+              file="Source/ARAHelper_AudioMod.h"/>
         <FILE id="KAUcUw" name="DemoDocumentControllerSpecialisation.cpp" compile="1"
               resource="0" file="Source/DemoDocumentControllerSpecialisation.cpp"/>
         <FILE id="Bbftd9" name="DemoDocumentControllerSpecialisation.h" compile="0"

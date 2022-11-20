@@ -63,15 +63,6 @@ void ARA_HelperView::_update()
 void ARA_HelperView::_updateRegions()
 {
 	auto regionSequences = araDocument.getRegionSequences();
-
-//	for(auto sequence : regionSequences)
-//	{
-//		auto playbackRegions = sequence->getPlaybackRegions();
-//		for(auto region : playbackRegions)
-//		{
-//			objectWidget = std::make_unique<ARA_PlaybackRegionWidget>(region);
-//		}
-//	}
 }
 
 
@@ -93,8 +84,8 @@ void ARA_HelperView::_resizeTableHeader()
 	tableHeader->addColumn("Audio Mods:", 			static_cast<int>(ARAObjectID::AudioModification), columnWidth);
 	tableHeader->addColumn("Audio Sources:", 		static_cast<int>(ARAObjectID::AudioSource), columnWidth);
 	
-	int headerHeight = (int)getLocalBounds().getHeight();
-	tableListBox->setHeaderHeight(headerHeight);
+//	int headerHeight = (int)getLocalBounds().getHeight();
+//	tableListBox->setHeaderHeight(headerHeight);
 	tableListBox->setHeader(std::move(tableHeader));
 }
 

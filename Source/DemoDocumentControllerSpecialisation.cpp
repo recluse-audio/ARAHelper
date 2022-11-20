@@ -17,7 +17,12 @@ DemoPlaybackRenderer* DemoDocumentControllerSpecialisation::doCreatePlaybackRend
 
 DemoEditorRenderer* DemoDocumentControllerSpecialisation::doCreateEditorRenderer() noexcept
 {
-	return new DemoEditorRenderer (getDocumentController(), &previewState);
+	return new DemoEditorRenderer (getDocumentController());
+}
+
+ARAHelper_AudioMod* DemoDocumentControllerSpecialisation::doCreateAudioModification(juce::ARAAudioSource *audioSource, ARA::ARAAudioModificationHostRef hostRef, const ARAAudioModification *optionalModificationToClone) noexcept
+{
+	return new ARAHelper_AudioMod(audioSource, hostRef, optionalModificationToClone);
 }
 
 bool DemoDocumentControllerSpecialisation::doRestoreObjectsFromStream (ARAInputStream& input,

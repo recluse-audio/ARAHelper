@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    DemoDocumentView.cpp
+    DocumentView.cpp
     Created: 1 Nov 2022 12:50:54pm
     Author:  Ryan Devens
 
@@ -9,10 +9,10 @@
 */
 
 #include <JuceHeader.h>
-#include "DemoDocumentView.h"
+#include "DocumentView.h"
 
 //==============================================================================
-DemoDocumentView::DemoDocumentView(juce::ARADocument& document, PlayHeadState& playHeadState)
+DocumentView::DocumentView(juce::ARADocument& document, PlayHeadState& playHeadState)
 : araDocument (document),
   overlay (playHeadState)
 {
@@ -38,7 +38,7 @@ DemoDocumentView::DemoDocumentView(juce::ARADocument& document, PlayHeadState& p
 	araDocument.addListener (this);
 }
 
-DemoDocumentView::~DemoDocumentView()
+DocumentView::~DocumentView()
 {
 	araDocument.removeListener (this);
 
@@ -46,45 +46,45 @@ DemoDocumentView::~DemoDocumentView()
 
 
 // ARADocument::Listener overrides
-void DemoDocumentView::didReorderRegionSequencesInDocument (juce::ARADocument*)
+void DocumentView::didReorderRegionSequencesInDocument (juce::ARADocument*)
 {
 	invalidateRegionSequenceViews();
 }
 
-void DemoDocumentView::didAddRegionSequenceToDocument (juce::ARADocument*, juce::ARARegionSequence*)
+void DocumentView::didAddRegionSequenceToDocument (juce::ARADocument*, juce::ARARegionSequence*)
 {
 	invalidateRegionSequenceViews();
 }
 
-void DemoDocumentView::willRemoveRegionSequenceFromDocument (juce::ARADocument*, juce::ARARegionSequence* regionSequence)
+void DocumentView::willRemoveRegionSequenceFromDocument (juce::ARADocument*, juce::ARARegionSequence* regionSequence)
 {
 	removeRegionSequenceView (regionSequence);
 }
 
-void DemoDocumentView::didEndEditing (juce::ARADocument*)
+void DocumentView::didEndEditing (juce::ARADocument*)
 {
 	rebuildRegionSequenceViews();
 	update();
 }
 
 //==============================================================================
-void DemoDocumentView::changeListenerCallback (juce::ChangeBroadcaster*)
+void DocumentView::changeListenerCallback (juce::ChangeBroadcaster*)
 {
 	update();
 }
 
 //==============================================================================
 // ARAEditorView::Listener overrides
-void DemoDocumentView::onNewSelection (const ARA::PlugIn::ViewSelection&)
+void DocumentView::onNewSelection (const ARA::PlugIn::ViewSelection&)
 {
 }
 
-void DemoDocumentView::onHideRegionSequences (const std::vector<juce::ARARegionSequence*>& regionSequences)
+void DocumentView::onHideRegionSequences (const std::vector<juce::ARARegionSequence*>& regionSequences)
 {
 }
 
 
-void DemoDocumentView::paint (juce::Graphics& g)
+void DocumentView::paint (juce::Graphics& g)
 {
 	auto outline = this->getBounds();
 	g.setColour(juce::Colours::red);
@@ -99,7 +99,7 @@ void DemoDocumentView::paint (juce::Graphics& g)
 					  1);
 }
 
-void DemoDocumentView::resized()
+void DocumentView::resized()
 {
 	auto bounds = getLocalBounds();
 	const auto bottomControlsBounds = bounds.removeFromBottom (40);
@@ -113,7 +113,7 @@ void DemoDocumentView::resized()
 }
 
 
-void DemoDocumentView::setZoomLevel (double pixelPerSecond)
+void DocumentView::setZoomLevel (double pixelPerSecond)
 {
 	zoomLevelPixelPerSecond = pixelPerSecond;
 
@@ -128,7 +128,7 @@ void DemoDocumentView::setZoomLevel (double pixelPerSecond)
 
 //=============================
 // PRIVATE FUNCTIONS
-void DemoDocumentView::zoom (double factor)
+void DocumentView::zoom (double factor)
 {
 	zoomLevelPixelPerSecond = jlimit (minimumZoom, minimumZoom * 32, zoomLevelPixelPerSecond * factor);
 	setZoomLevel (zoomLevelPixelPerSecond);
@@ -136,7 +136,7 @@ void DemoDocumentView::zoom (double factor)
 
 
 
-void DemoDocumentView::update()
+void DocumentView::update()
 {
 	timelineLength = 0.0;
 
@@ -151,7 +151,7 @@ void DemoDocumentView::update()
 	resized();
 }
 
-void DemoDocumentView::addTrackViews (juce::ARARegionSequence* regionSequence)
+void DocumentView::addTrackViews (juce::ARARegionSequence* regionSequence)
 {
 	const auto insertIntoMap = [](auto& map, auto key, auto value) -> auto&
 	{
@@ -162,7 +162,7 @@ void DemoDocumentView::addTrackViews (juce::ARARegionSequence* regionSequence)
 	auto& regionSequenceView = insertIntoMap (
 		regionSequenceViews,
 		RegionSequenceViewKey { regionSequence },
-		std::make_unique<DemoRegionSequenceView> (*regionSequence, waveformCache, zoomLevelPixelPerSecond));
+		std::make_unique<RegionSequenceView> (*regionSequence, waveformCache, zoomLevelPixelPerSecond));
 
 	regionSequenceView.addChangeListener (this);
 	viewport.content.addAndMakeVisible (regionSequenceView);
@@ -175,7 +175,7 @@ void DemoDocumentView::addTrackViews (juce::ARARegionSequence* regionSequence)
 }
 
 
-void DemoDocumentView::removeRegionSequenceView (juce::ARARegionSequence* regionSequence)
+void DocumentView::removeRegionSequenceView (juce::ARARegionSequence* regionSequence)
 {
 	const auto& view = regionSequenceViews.find (RegionSequenceViewKey { regionSequence });
 
@@ -188,13 +188,13 @@ void DemoDocumentView::removeRegionSequenceView (juce::ARARegionSequence* region
 	invalidateRegionSequenceViews();
 }
 
-void DemoDocumentView::invalidateRegionSequenceViews()
+void DocumentView::invalidateRegionSequenceViews()
 {
 	regionSequenceViewsAreValid = false;
 	rebuildRegionSequenceViews();
 }
 
-void DemoDocumentView::rebuildRegionSequenceViews()
+void DocumentView::rebuildRegionSequenceViews()
 {
 	if (! regionSequenceViewsAreValid && ! araDocument.getDocumentController()->isHostEditingDocument())
 	{
