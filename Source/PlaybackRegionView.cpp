@@ -10,6 +10,10 @@
 
 #include <JuceHeader.h>
 #include "PlaybackRegionView.h"
+#include "ActiveRegionView.h"
+#include "AudioModView.h"
+#include "AudioSourceView.h"
+
 #include "DemoDocumentControllerSpecialisation.h"
 #include "GlobalDefines.h"
 #include "WaveformCache.h"
@@ -19,9 +23,21 @@
 PlaybackRegionView::PlaybackRegionView(ARAPlaybackRegion& region, WaveformCache& cache)
 : playbackRegion (region), waveformCache (cache)
 {
+	
 	auto* audioSource = playbackRegion.getAudioModification()->getAudioSource();
 
 	waveformCache.getOrCreateThumbnail (audioSource).addChangeListener (this);
+	
+	
+	audioSourceView = std::make_unique<AudioSourceView>(*audioSource, waveformCache);
+	addAndMakeVisible(audioSourceView.get());
+	
+	audioModView = std::make_unique<AudioModView>();
+	addAndMakeVisible(audioModView.get());
+	
+	activeRegionView = std::make_unique<ActiveRegionView>(playbackRegion, waveformCache);
+	addAndMakeVisible(activeRegionView.get());
+	
 	
 	juce::String regionAddress = HexStringForPointer(&region);
 	juce::String labelText ("Memory Address: ");
@@ -35,6 +51,7 @@ PlaybackRegionView::PlaybackRegionView(ARAPlaybackRegion& region, WaveformCache&
 	playbackRegion.addListener(this);
 }
 
+//-------------------------------------
 PlaybackRegionView::~PlaybackRegionView()
 {
 	waveformCache.getOrCreateThumbnail (playbackRegion.getAudioModification()->getAudioSource())
@@ -43,69 +60,49 @@ PlaybackRegionView::~PlaybackRegionView()
 	playbackRegion.removeListener(this);
 }
 
-void PlaybackRegionView::mouseDown (const juce::MouseEvent& m)
-{
-	const auto percentOfRegion = (double) m.getMouseDownX() / getLocalBounds().getWidth();
-	const auto samplePosOfMouseWithinPlaybackRegion = percentOfRegion * playbackRegion.getDurationInPlaybackTime();
-	const auto previewTime = playbackRegion.getStartInPlaybackTime() + samplePosOfMouseWithinPlaybackRegion;
-	
-	
-}
 
-void PlaybackRegionView::mouseUp (const juce::MouseEvent&)
-{
-
-	
-}
-
+//-------------------------------------
 void PlaybackRegionView::changeListenerCallback(juce::ChangeBroadcaster* changeBroadcaster)
 {
 	repaint();
 }
 
 
-
+//-------------------------------------
 void PlaybackRegionView::paint (juce::Graphics& g)
 {
-	g.fillAll (Colours::darkgrey.darker());
+	g.fillAll (Colours::darkgrey.darker(0.9f));
 	
-	g.setColour (Colours::whitesmoke.darker());
-	
-	/**
-		TO DO: Make this thumbnail into a component
-	 */
-	auto& thumbnail = waveformCache.getOrCreateThumbnail (playbackRegion.getAudioModification()->getAudioSource());
-	
-	auto thumbnailHeight = getLocalBounds().proportionOfHeight(0.6f);
-	thumbnail.drawChannels (g, getLocalBounds().withHeight(thumbnailHeight),
-							playbackRegion.getStartInAudioModificationTime(),
-							playbackRegion.getEndInAudioModificationTime(),
-							1.0f);
-	
-	g.setColour (Colours::black);
-	g.drawRect (getLocalBounds());
-	
-	auto modColor = playbackRegion.getAudioModification<ARAHelper_AudioMod>()->getColor();
-	g.setColour(modColor);
-	
-	auto outline = this->getLocalBounds();
-	g.drawRect(outline, 2.f);
+//	auto bounds = this->getLocalBounds();
+//
+//	_drawPlaybackRegion(g);
+//
+//	g.drawRect(bounds, 2.f);
 
 }
 
+
+
+
+//-------------------------------------
 void PlaybackRegionView::updateAddressLabel(juce::StringRef newAddress)
 {
 	juce::String labelText("Playback Region - Memory Address: ");
 	memoryAddressLabel->setText(labelText + newAddress, juce::NotificationType::sendNotification);
 }
 
+//-------------------------------------
 void PlaybackRegionView::resized()
 {
 	memoryAddressLabel->setBoundsRelative(0.05f, 0.65f, 0.4f, 0.25f);
 	notificationLabel->setBoundsRelative(0.5f, 0.65f, 0.4f, 0.25f);
+	
+	_updateRegionBounds();
+	
 	repaint();
 }
 
+//-------------------------------------
 void PlaybackRegionView::didUpdatePlaybackRegionProperties(juce::ARAPlaybackRegion* updatedRegion)
 {
 	if(&playbackRegion == updatedRegion)
@@ -116,3 +113,34 @@ void PlaybackRegionView::didUpdatePlaybackRegionProperties(juce::ARAPlaybackRegi
 	}
 
 }
+
+//-------------------------------------
+void PlaybackRegionView::_updateRegionBounds()
+{
+	auto audioSourceBounds = this->getLocalBounds();
+	auto audioModBounds = audioSourceBounds.reduced(2);
+	audioSourceView->setBounds(audioSourceBounds);
+	audioModView->setBounds(audioModBounds);
+	
+	auto audioSource = playbackRegion.getAudioModification()->getAudioSource();
+	auto sourceDuration = audioSource->getDuration();
+	
+	auto regionStartInMod = playbackRegion.getStartInAudioModificationTime();
+	auto regionDurationInMod = playbackRegion.getDurationInAudioModificationTime();
+	
+	auto regionStartInBounds = ( regionStartInMod   / sourceDuration ) * audioModBounds.getWidth();
+	auto regionWidthInBounds = ( regionDurationInMod / sourceDuration ) * audioModBounds.getWidth();
+	
+	auto activeRegionBounds = juce::Rectangle<int>(regionStartInBounds, audioModBounds.getY(), regionWidthInBounds, audioModBounds.getHeight());
+	
+	activeRegionView->setBounds(activeRegionBounds);
+}
+
+
+
+
+
+
+
+
+

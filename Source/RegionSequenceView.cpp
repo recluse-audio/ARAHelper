@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "RegionSequenceView.h"
+#include "GlobalDefines.h"
 
 //==============================================================================
 RegionSequenceView::RegionSequenceView(ARARegionSequence& rs, WaveformCache& wave, double pixelPerSec)
@@ -83,8 +84,12 @@ void RegionSequenceView::resized()
 		const auto playbackRegion = pbr.first;
 		auto regionView = pbr.second.get();
 		
-		const auto xPos = roundToInt(playbackRegion->getStartInPlaybackTime() * zoomLevelPixelPerSecond);
-		const auto width = roundToInt (playbackRegion->getDurationInPlaybackTime() * zoomLevelPixelPerSecond);
+		auto sourceStartInTimeline = getAudioSourceStartInTimeLine(playbackRegion);
+		
+		auto sourceDuration = playbackRegion->getAudioModification()->getAudioSource()->getDuration();
+		
+		const auto xPos = roundToInt(sourceStartInTimeline * zoomLevelPixelPerSecond);
+		const auto width = roundToInt (sourceDuration * zoomLevelPixelPerSecond);
 		
 		auto regionViewBounds = juce::Rectangle<int>(xPos, 5, width, this->getHeight() - 10);
 		regionView->setBounds(regionViewBounds);

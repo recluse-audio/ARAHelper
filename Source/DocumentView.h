@@ -105,7 +105,7 @@ private:
 
 
     static constexpr auto minimumZoom = 10.0;
-    static constexpr auto trackHeight = 60;
+    static constexpr auto trackHeight = 100;
 
 	juce::ARADocument& araDocument;
 

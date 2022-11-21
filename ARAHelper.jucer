@@ -28,9 +28,36 @@
               file="Source/VerticalLayoutViewport.h"/>
         <FILE id="lJM1hF" name="VerticalLayoutViewportContent.h" compile="0"
               resource="0" file="Source/VerticalLayoutViewportContent.h"/>
+        <FILE id="bRAapr" name="WaveformView.cpp" compile="1" resource="0"
+              file="Source/WaveformView.cpp"/>
+        <FILE id="xdoeGW" name="WaveformView.h" compile="0" resource="0" file="Source/WaveformView.h"/>
         <FILE id="voncYt" name="ZoomControls.h" compile="0" resource="0" file="Source/ZoomControls.h"/>
       </GROUP>
       <GROUP id="{748BF6FD-1CDE-63EC-6E44-C5B289A3011C}" name="ARA_Views">
+        <GROUP id="{F39CCB1F-5DC6-FE16-AD40-56645A1FB87F}" name="ARAObjectViews">
+          <FILE id="wYA3Hk" name="AudioSourceView.cpp" compile="1" resource="0"
+                file="Source/AudioSourceView.cpp"/>
+          <FILE id="cOXNAH" name="AudioSourceView.h" compile="0" resource="0"
+                file="Source/AudioSourceView.h"/>
+          <FILE id="vEhB2x" name="ActiveRegionView.cpp" compile="1" resource="0"
+                file="Source/ActiveRegionView.cpp"/>
+          <FILE id="gFOH3W" name="ActiveRegionView.h" compile="0" resource="0"
+                file="Source/ActiveRegionView.h"/>
+          <FILE id="YNWqFQ" name="AudioModView.cpp" compile="1" resource="0"
+                file="Source/AudioModView.cpp"/>
+          <FILE id="OmOoGO" name="AudioModView.h" compile="0" resource="0" file="Source/AudioModView.h"/>
+          <FILE id="ZJkiBS" name="PlaybackRegionView.cpp" compile="1" resource="0"
+                file="Source/PlaybackRegionView.cpp"/>
+          <FILE id="YqUzOe" name="PlaybackRegionView.h" compile="0" resource="0"
+                file="Source/PlaybackRegionView.h"/>
+          <FILE id="QDnlBe" name="RegionSequenceView.cpp" compile="1" resource="0"
+                file="Source/RegionSequenceView.cpp"/>
+          <FILE id="I4JC0L" name="RegionSequenceView.h" compile="0" resource="0"
+                file="Source/RegionSequenceView.h"/>
+          <FILE id="vtWzHn" name="DocumentView.cpp" compile="1" resource="0"
+                file="Source/DocumentView.cpp"/>
+          <FILE id="ULvmva" name="DocumentView.h" compile="0" resource="0" file="Source/DocumentView.h"/>
+        </GROUP>
         <GROUP id="{6521DEB5-808B-3CC8-9DDB-050E2ADF3570}" name="ARAHelperView">
           <GROUP id="{D47F7A27-5605-A663-7F38-BFA3B41593F0}" name="Widgets">
             <FILE id="BQE6Xl" name="ARA_ObjectWidget.cpp" compile="1" resource="0"
@@ -55,17 +82,6 @@
           <FILE id="i0KFCU" name="ARA_ListenerCallbackDisplay.h" compile="0"
                 resource="0" file="Source/ARA_ListenerCallbackDisplay.h"/>
         </GROUP>
-        <FILE id="ZJkiBS" name="PlaybackRegionView.cpp" compile="1" resource="0"
-              file="Source/PlaybackRegionView.cpp"/>
-        <FILE id="YqUzOe" name="PlaybackRegionView.h" compile="0" resource="0"
-              file="Source/PlaybackRegionView.h"/>
-        <FILE id="QDnlBe" name="RegionSequenceView.cpp" compile="1" resource="0"
-              file="Source/RegionSequenceView.cpp"/>
-        <FILE id="I4JC0L" name="RegionSequenceView.h" compile="0" resource="0"
-              file="Source/RegionSequenceView.h"/>
-        <FILE id="vtWzHn" name="DocumentView.cpp" compile="1" resource="0"
-              file="Source/DocumentView.cpp"/>
-        <FILE id="ULvmva" name="DocumentView.h" compile="0" resource="0" file="Source/DocumentView.h"/>
       </GROUP>
       <GROUP id="{28EADBB1-911D-3C92-9EF8-482AA0FDBA4B}" name="ARA">
         <FILE id="WDLMP2" name="ARAHelper_AudioMod.cpp" compile="1" resource="0"
